@@ -43,7 +43,7 @@ plot(rev(geodf$lon), rev(geodf$lat), type = "l", lwd = 3, bty = "n", ylab = "Lat
 dev.off()
 ```
 
-![](../images/Route_plot.pdf)
+![](Route_plot.pdf)<!-- -->
 
 ## Getting the bird records from GBIF
 Now let's get the map templates using ggplot, the bird distributions using rgbif, and generally get set up to plot. We'll read in 10000 records from gbif, each of which has coordinates, between the years 2006 and 2016. Additionally, we'll pick only records between the 6th and 8th months (June-August) to ensure breeding records.
