@@ -106,7 +106,6 @@ ggsave(file="Upland_sandpiper_gbif_plot_with_route.png", width=16, height=9)
 ## Other useful options
 You can also plot subsets of the map by choosing particular states, filtering the bird records and bike route by lat and longs. I did this for the California Scrub Jay, which only occurred in Washington and Oregon on my route. It would be nice if there were a list of regions that could be accessed, but I couldn't find an easy one. Check the ggplot map functions:
 
-dim(jays)
 ```{r}
 jays<-occ_data(scientificName = "Aphelocoma californica", country = US_code[2], hasCoordinate = TRUE, limit=10000, year = '2006,2016', month = '6,8')
 jays<-jays$data
