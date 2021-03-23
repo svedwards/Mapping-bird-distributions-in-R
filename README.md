@@ -36,14 +36,14 @@ geodf$time <- strptime(geodf$time, format = "%Y-%m-%dT%H:%M:%OS")
 To  get a quick view of the route (as a plot):
 
 ```{r}
-pdf(file = "route_plot.pdf",
+png(file = "route_plot.png",
     width = 16, # The width of the plot in inches
     height = 9) # The height of the plot in inches
 plot(rev(geodf$lon), rev(geodf$lat), type = "l", lwd = 3, bty = "n", ylab = "Latitude", xlab = "Longitude")
 dev.off()
 ```
 
-![](Route_plot.pdf)<!-- -->
+![](Route_plot.png)<!-- -->
 
 ## Getting the bird records from GBIF
 Now let's get the map templates using ggplot, the bird distributions using rgbif, and generally get set up to plot. We'll read in 10000 records from gbif, each of which has coordinates, between the years 2006 and 2016. Additionally, we'll pick only records between the 6th and 8th months (June-August) to ensure breeding records.
@@ -81,23 +81,27 @@ batramia<-filter(batramia,decimalLatitude < 52)
 Then I use ggplot to plot the map and then lay the (now) 9932 bird records on it, using a transparency of 1/100 so you can see overlaps. I add the "blank background theme to get rid of the gray tiled background:
 ```{r}
 ggplot() + map_us + geom_point(data = batramia,aes(x = decimalLongitude,y = decimalLatitude),alpha = 1/100,size = 5) + theme(panel.background = element_blank())
-ggsave(file="Upland_sandpiper_gbif_plot_with_points.pdf", width=16, height=9)
+ggsave(file="Upland_sandpiper_gbif_plot_with_points.png", width=16, height=9)
 ```
+![](Upland_sandpiper_gbif_plot_with_points.png)<!-- -->
 
 You can also make this a gradient plot, although I find that, for this species, this interpolates some of the range gaps in a weird way. (I also find it looks less garbled in the regular R studio):
 
 ```{r}
 ggplot(data = batramia,aes(x = decimalLongitude,y = decimalLatitude)) + map_us + stat_density_2d(aes(fill = ..level..),geom = "polygon", alpha = 0.4) + theme(panel.background = element_blank())
-ggsave(file="Upland_sandpiper_gbif_plot_distributions.pdf", width=16, height=9)
+ggsave(file="Upland_sandpiper_gbif_plot_distributions.png", width=16, height=9)
 ```
+![](Upland_sandpiper_gbif_plot_distributions.png)<!-- -->
+
 ## Putting it all together
 I have no idea why the axis labels are now different! Probably something I did earlier.We can then overlay the bike route as a geom_line, adding another step to the ggplot. I think we plot the reverse of the lat and long so that the values are all positive. See [this web site](https://rpubs.com/ials2un/gpx1),which I used as s template.
 
 ```{r}
 ggplot() + map_us + geom_point(data = batramia,aes(x = decimalLongitude,y = decimalLatitude),alpha = 1/100,size = 5) + theme(panel.background = element_blank()) +
 geom_line(data=geodf,aes(x=rev(lon), y=rev(lat)),size=1,color="blue")
-ggsave(file="Upland_sandpiper_gbif_plot_with_route.pdf", width=16, height=9)
+ggsave(file="Upland_sandpiper_gbif_plot_with_route.png", width=16, height=9)
 ```
+![](Upland_sandpiper_gbif_plot_with_route.png)<!-- -->
 
 ## Other useful options
 You can also plot subsets of the map by choosing particular states, filtering the bird records and bike route by lat and longs. I did this for the California Scrub Jay, which only occurred in Washington and Oregon on my route. It would be nice if there were a list of regions that could be accessed, but I couldn't find an easy one. Check the ggplot map functions:
@@ -111,5 +115,6 @@ map_nw <- borders(database = "state", regions = c("washington","oregon"), colour
 geonw<-filter(geodf,lon < -116.46513367)
 ggplot(data = jays,aes(x = decimalLongitude,y = decimalLatitude)) + map_nw + stat_density_2d(aes(fill = ..level..),geom = "polygon", alpha = 0.4) + theme(panel.background = element_blank()) + 
   geom_line(data=geonw,aes(x=rev(lon), y=rev(lat)),size=1,color="blue")
-ggsave(file="Scrub_jay_nw_plot_with_route.pdf", width=16, height=9)
+ggsave(file="Scrub_jay_nw_plot_with_route.png", width=16, height=9)
 ```
+![](Scrub_jay_nw_plot_with_route.png)<!-- -->
