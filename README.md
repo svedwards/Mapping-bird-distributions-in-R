@@ -5,7 +5,7 @@ This script shows how I overlayed my cross-country bicycle trip with the distrib
 library(XML)
 library(OpenStreetMap)
 library(lubridate)
-xmlroute <- htmlTreeParse(file = "/Users/scottedwards/OneDrive\ -\ Harvard\ University/Family/bike/Sections/Presentations/Scotts_X_country_bicycle_trip_2020_v2.gpx",error = function(...) {
+xmlroute <- htmlTreeParse(file = "/Scotts_X_country_bicycle_trip_2020_v2.gpx",error = function(...) {
 }, useInternalNodes = T)
 ```
 
