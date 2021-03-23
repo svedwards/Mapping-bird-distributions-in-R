@@ -2,7 +2,6 @@
 
 This script shows how I overlayed my cross-country bicycle trip with the distribution of some regionally common birds. My bicycle journey was recorded in a file type called .gpx. It's a type of XML file I think, so the first thing I did was get the relevant libraries and read it in using the R package XML. [This tutorial](https://rpubs.com/ials2un/gpx1) helped.
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
 library(XML)
 library(OpenStreetMap)
 library(lubridate)
