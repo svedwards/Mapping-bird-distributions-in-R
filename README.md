@@ -53,7 +53,7 @@ library(tidyr)
 library(rgbif)
 library("dplyr")
 US_code <- isocodes[grep("United States", isocodes$name), "code"]
-occur<-occ_data(scientificName = "Bartramia longicauda", country = US_code[2], hasCoordinate = TRUE, limit=10000, year = '2006,2016', month = '6,8')#
+occur<-occ_data(scientificName = "Bartramia longicauda", country = US_code[2], hasCoordinate = TRUE, limit=10000, year = '2006,2016', month = '6,8')
 ```
 
 The occ_data function allows you to download just the lat, long and a few other important parameters, rather than all the gory details.
